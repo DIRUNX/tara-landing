@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activación - TARA Cloud Gateway</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #ffffff;
+      color: #1a1a1a;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 0;
+      border-bottom: 2px solid #00DE87;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      height: 50px;
+      width: auto;
+    }
+
+    .brand-name {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #00DE87;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .header-link {
+      color: #00DE87;
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 10px 20px;
+      border: 2px solid #00DE87;
+      border-radius: 20px;
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+
+    .header-link:hover {
+      background: rgba(0, 222, 135, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Form Container */
+    .form-section {
+      background: #f8f8f8;
+      border-radius: 20px;
+      padding: 50px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .form-section h1 {
+      font-size: 2.5rem;
+      color: #00DE87;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .form-section .subtitle {
+      text-align: center;
+      color: #666;
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+    }
+
+    /* Progress Steps */
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+
+    .progress-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.4;
+      transition: all 0.3s;
+    }
+
+    .progress-step.active {
+      opacity: 1;
+    }
+
+    .progress-step.completed {
+      opacity: 0.7;
+    }
+
+    .step-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      border: 3px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #666;
+      transition: all 0.3s;
+    }
+
+    .progress-step.active .step-circle {
+      background: #00FF99;
+      border-color: #00DE87;
+      color: #000;
+      transform: scale(1.15);
+    }
+
+    .progress-step.completed .step-circle {
+      background: #00DE87;
+      border-color: #00DE87;
+      color: #fff;
+    }
+
+    .step-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #666;
+      text-align: center;
+    }
+
+    .progress-step.active .step-label {
+      color: #00DE87;
+    }
+
+    /* Form Styles */
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    .form-group {
+      margin-bottom: 30px;
+    }
+
+    .form-group label {
+      display: block;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      background: #ffffff;
+      color: #1a1a1a;
+      font-size: 1rem;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #00DE87;
+      box-shadow: 0 0 0 3px rgba(0, 222, 135, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .radio-option input[type="radio"] {
+      width: auto;
+      accent-color: #00DE87;
+    }
+
+    .form-hint {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 5px;
+      font-style: italic;
+    }
+
+    /* Buttons */
+    .form-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00FF99 0%, #00DE87 100%);
+      color: #000000;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(0, 255, 153, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 255, 153, 0.5);
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      color: #00DE87;
+      padding: 15px 35px;
+      border: 2px solid #00DE87;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(0, 222, 135, 0.05);
+    }
+
+    /* Success Message */
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .success-message.active {
+      display: block;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .success-icon {
+      font-size: 5rem;
+      margin-bottom: 20px;
+      animation: bounce 1s ease-in-out;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .success-message h2 {
+      font-size: 2.2rem;
+      color: #00DE87;
+      margin-bottom: 20px;
+    }
+
+    .success-message p {
+      color: #666;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      max-width: 600px;
+      margin: 0 auto 15px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #999;
+      font-size: 0.9rem;
+      margin-top: 60px;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .form-section {
+        padding: 30px 20px;
+      }
+
+      .form-section h1 {
+        font-size: 2rem;
+      }
+
+      .progress-container {
+        gap: 10px;
+      }
+
+      .step-circle {
+        width: 35px;
+        height: 35px;
+      }
+
+      .step-label {
+        font-size: 0.75rem;
+      }
+
+      .form-buttons {
+        flex-direction: column;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-container">
+        <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 10 L50 85 L70 10" fill="none" stroke="#00DE87" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M35 45 L50 70 L65 45" fill="none" stroke="#00FF99" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="brand-name">TARA</span>
+      </div>
+      <a href="https://www.endurax.net" target="_blank" class="header-link">by endurax.net</a>
+    </header>
+
+    <div class="form-section">
+      <h1>Configurador de Firewall en la Nube</h1>
+      <p class="subtitle">Completa estos pasos para activar tu protección empresarial</p>
+
+      <!-- Progress Steps -->
+      <div class="progress-container">
+        <div class="progress-step active" id="step-indicator-1">
+          <div class="step-circle">1</div>
+          <div class="step-label">Empresa</div>
+        </div>
+        <div class="progress-step" id="step-indicator-2">
+          <div class="step-circle">2</div>
+          <div class="step-label">Conectividad</div>
+        </div>
+        <div class="progress-step" id="step-indicator-3">
+          <div class="step-circle">3</div>
+          <div class="step-label">Usuarios</div>
+        </div>
+        <div class="progress-step" id="step-indicator-4">
+          <div class="step-circle">4</div>
+          <div class="step-label">Protección</div>
+        </div>
+        <div class="progress-step" id="step-indicator-5">
+          <div class="step-circle">5</div>
+          <div class="step-label">Red</div>
+        </div>
+        <div class="progress-step" id="step-indicator-6">
+          <div class="step-circle">6</div>
+          <div class="step-label">Reportes</div>
+        </div>
+        <div class="progress-step" id="step-indicator-7">
+          <div class="step-circle">7</div>
+          <div class="step-label">Confirmar</div>
+        </div>
+      </div>
+
+      <form id="taraForm" action="https://formspree.io/f/xwprzdyq" method="POST">
+        
+        <!-- Step 1: Información de Empresa -->
+        <div class="form-step active" id="step-1">
+          <div class="form-group">
+            <label for="nombre_empresa">Nombre de tu empresa *</label>
+            <input type="text" id="nombre_empresa" name="nombre_empresa" required placeholder="Ej: Consultoría López SL">
+          </div>
+
+          <div class="form-group">
+            <label for="nombre_contacto">Tu nombre completo *</label>
+            <input type="text" id="nombre_contacto" name="nombre_contacto" required placeholder="Ej: María López García">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email corporativo *</label>
+            <input type="email" id="email" name="email" required placeholder="tu.email@empresa.com">
+          </div>
+
+          <div class="form-group">
+            <label for="telefono">Teléfono de contacto *</label>
+            <input type="tel" id="telefono" name="telefono" required placeholder="+34 600 123 456">
+          </div>
+
+          <div class="form-group">
+            <label for="num_empleados">Número de empleados *</label>
+            <select id="num_empleados" name="num_empleados" required>
+              <option value="">Selecciona...</option>
+              <option value="1-5">1-5 empleados</option>
+              <option value="6-10">6-10 empleados</option>
+              <option value="11-25">11-25 empleados</option>
+              <option value="26-50">26-50 empleados</option>
+              <option value="50+">Más de 50 empleados</option>
+            </select>
+          </div>
+
+          <div class="form-buttons">
+            <button type="button" class="btn-primary" onclick="nextStep(2)">Siguiente</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Conectividad -->
+        <div class="form-step" id="step-2">
+          <div class="form-group">
+            <label for="tipo_conexion">Tipo de conexión a Internet *</label>
+            <select id="tipo_conexion" name="tipo_conexion" required>
+              <option value="">Selecciona...</option>
+              <option value="ip_estatica">Internet fijo (IP estática)</option>
+              <option value="ip_dinamica">Internet fijo (IP dinámica)</option>
+              <option value="lte">LTE / 4G / 5G</option>
+              <option value="no_se">No estoy seguro</option>
+            </select>
+            <div class="form-hint">Si no lo sabes, selecciona "No estoy seguro" y te ayudaremos</div>
+          </div>
+
+          <div class="form-group">
+            <label for="ip_publica">Si tienes IP estática, indícala aquí (opcional)</label>
+            <input type="text" id="ip_publica" name="ip_publica" placeholder="Ej: 123.45.67.89">
+            <div class="form-hint">Déjalo en blanco si no tienes o no la conoces</div>
+          </div>
+
+          <div class="form-group">
+            <label>¿Tu empresa tiene más de una oficina o sede? *</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="multi_sede_si" name="multi_sede" value="Si" required>
+                <label for="multi_sede_si" style="margin: 0; font-weight: normal;">Sí, tenemos varias sedes</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="multi_sede_no" name="multi_sede" value="No" required>
+                <label for="multi_sede_no" style="margin: 0; font-weight: normal;">No, solo una sede</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="proveedor_internet">¿Quién es tu proveedor de Internet?</label>
+            <input type="text" id="proveedor_internet" name="proveedor_internet" placeholder="Ej: Movistar, Vodafone, Orange...">
+          </div>
+
+          <div class="form-buttons">
+            <button type="button" class="btn-secondary" onclick="prevStep(1)">Atrás</button>
+            <button type="button" class="btn-primary" onclick="nextStep(3)">Siguiente</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Usuarios Remotos -->
+        <div class="form-step" id="step-3">
+          <div class="form-group">
+            <label>¿Tienes empleados trabajando desde casa o viajando? *</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="usuarios_remotos_si" name="usuarios_remotos" value="Si" required>
+                <label for="usuarios_remotos_si" style="margin: 0; font-weight: normal;">Sí</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="usuarios_remotos_no" name="usuarios_remotos" value="No" required>
+                <label for="usuarios_remotos_no" style="margin: 0; font-weight: normal;">No</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="num_usuarios_remotos">Si respondiste sí, ¿cuántos usuarios remotos?</label>
+            <input type="number" id="num_usuarios_remotos" name="num_usuarios_remotos" min="0" placeholder="Ej: 5">
+            <div class="form-hint">Personas que necesitan acceder a recursos de la empresa desde fuera</div>
+          </div>
+
+          <div class="form-group">
+            <label for="dispositivos_remotos">¿Qué dispositivos usan para trabajar remotamente?</label>
+            <input type="text" id="dispositivos_remotos" name="dispositivos_remotos" placeholder="Ej: Portátiles Windows, MacBook, tablets...">
+          </div>
+
+          <div class="form-buttons">
+            <button type="button" class="btn-secondary" onclick="prevStep(2)">Atrás</button>
+            <button type="button" class="btn-primary" onclick="nextStep(4)">Siguiente</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Nivel de Protección -->
+        <div class="form-step" id="step-4">
+          <div class="form-group">
+            <label for="nivel_proteccion">¿Qué nivel de protección necesitas? *</label>
+            <select id="nivel_proteccion" name="nivel_proteccion" required>
+              <option value="">Selecciona...</option>
+              <option value="basico">Básico - Bloqueo de amenazas comunes</option>
+              <option value="estandar">Estándar - Protección completa (recomendado)</option>
+              <option value="avanzado">Avanzado - Máxima seguridad con análisis profundo</option>
+              <option value="no_se">No estoy seguro, necesito asesoramiento</option>
+            </select>
+            <div class="form-hint">La opción Estándar protege todo excepto streaming de video</div>
+          </div>
+
+          <div class="form-group">
+            <label>¿Manejas información sensible de clientes? *</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="datos_sensibles_si" name="datos_sensibles" value="Si" required>
+                <label for="datos_sensibles_si" style="margin: 0; font-weight: normal;">Sí (datos personales, pagos, salud...)</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="datos_sensibles_no" name="datos_sensibles" value="No" required>
+                <label for="datos_sensibles_no" style="margin: 0; font-weight: normal;">No</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="sectores_especiales">¿Tu empresa pertenece a alguno de estos sectores?</label>
+            <select id="sectores_especiales" name="sectores_especiales">
+              <option value="">Selecciona si aplica...</option>
+              <option value="salud">Salud / Clínicas</option>
+              <option value="legal">Legal / Abogados</option>
+              <option value="financiero">Financiero / Asesoría</option>
+              <option value="educacion">Educación</option>
+              <option value="otro">Otro sector</option>
+            </select>
+          </div>
+
+          <div class="form-buttons">
+            <button type="button" class="btn-secondary" onclick="prevStep(3)">Atrás</button>
+            <button type="button" class="btn-primary" onclick="nextStep(5)">Siguiente</button>
+          </div>
+        </div>
+
+        <!-- Step 5: Red Interna -->
+        <div class="form-step" id="step-5">
+          <div class="form-group">
+            <label for="num_dispositivos">¿Cuántos dispositivos conectas a tu red? *</label>
+            <select id="num_dispositivos" name="num_dispositivos" required>
+              <option value="">Selecciona...</option>
+              <option value="1-10">1-10 dispositivos</option>
+              <option value="11-25">11-25 dispositivos</option>
+              <option value="26-50">26-50 dispositivos</option>
+              <option value="50+">Más de 50 dispositivos</option>
+            </select>
+            <div class="form-hint">Ordenadores, impresoras, teléfonos IP, cámaras, etc.</div>
+          </div>
+
+          <div class="form-group">
+            <label>¿Tienes servidor o almacenamiento en tu oficina? *</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="servidor_local_si" name="servidor_local" value="Si" required>
+                <label for="servidor_local_si" style="margin: 0; font-weight: normal;">Sí</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="servidor_local_no" name="servidor_local" value="No" required>
+                <label for="servidor_local_no" style="margin: 0; font-weight: normal;">No</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="servicios_cloud">¿Qué servicios en la nube usas?</label>
+            <input type="text" id="servicios_cloud" name="servicios_cloud" placeholder="Ej: Microsoft 365, Google Workspace, Dropbox...">
+          </div>
+
+          <div class="form-buttons">
+            <button type="button" class="btn-secondary" onclick="prevStep(4)">Atrás</button>
+            <button type="button" class="btn-primary" onclick="nextStep(6)">Siguiente</button>
+          </div>
+        </div>
+
+        <!-- Step 6: Reportes -->
+        <div class="form-step" id="step-6">
+          <div class="form-group">
+            <label for="frecuencia_reportes">¿Con qué frecuencia quieres recibir informes de seguridad? *</label>
+            <select id="frecuencia_reportes" name="frecuencia_reportes" required>
+              <option value="">Selecciona...</option>
+              <option value="diario">Diario</option>
+              <option value="semanal">Semanal (recomendado)</option>
+              <option value="mensual">Mensual</option>
+              <option value="solo_alertas">Solo en caso de alertas importantes</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="email_reportes">Email para recibir reportes</label>
+            <input type="email" id="email_reportes" name="email_reportes" placeholder="Puede ser el mismo que indicaste antes">
+            <div class="form-hint">Déjalo en blanco para usar el email principal</div>
+          </div>
+
+          <div class="form-group">
+            <label>¿Quieres recibir alertas por WhatsApp en caso de incidentes? *</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="alertas_whatsapp_si" name="alertas_whatsapp" value="Si" required>
+                <label for="alertas_whatsapp_si" style="margin: 0; font-weight: normal;">Sí</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="alertas_whatsapp_no" name="alertas_whatsapp" value="No" required>
+                <label for="alertas_whatsapp_no" style="margin: 0; font-weight: normal;">No, solo por email</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-buttons">
+            <button type="button" class="btn-secondary" onclick="prevStep(5)">Atrás</button>
+            <button type="button" class="btn-primary" onclick="nextStep(7)">Siguiente</button>
+          </div>
+        </div>
+
+        <!-- Step 7: Confirmación -->
+        <div class="form-step" id="step-7">
+          <div class="form-group">
+            <label for="fecha_activacion">¿Cuándo quieres activar tu protección? *</label>
+            <select id="fecha_activacion" name="fecha_activacion" required>
+              <option value="">Selecciona...</option>
+              <option value="inmediato">Lo antes posible (24-48 horas)</option>
+              <option value="esta_semana">Esta semana</option>
+              <option value="proxima_semana">Próxima semana</option>
+              <option value="este_mes">Este mes</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="comentarios_adicionales">¿Algo más que debamos saber?</label>
+            <textarea id="comentarios_adicionales" name="comentarios_adicionales" placeholder="Comparte cualquier detalle adicional, preguntas o necesidades específicas de tu empresa..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" name="acepto_terminos" required style="width: auto; margin-right: 10px;">
+              Acepto que endurax.net me contacte para activar mi protección y entiendo que recibiré 2 meses gratuitos del programa piloto TARA *
+            </label>
+          </div>
+
+          <div class="form-buttons">
+            <button type="button" class="btn-secondary" onclick="prevStep(6)">Atrás</button>
+            <button type="submit" class="btn-primary">Activar Mi Protección</button>
+          </div>
+        </div>
+
+        <!-- Success Message -->
+        <div class="success-message" id="success-message">
+          <div class="success-icon">✅</div>
+          <h2>¡Configuración Recibida!</h2>
+          <p><strong>Tu firewall en la nube está en proceso de activación.</strong></p>
+          <p>Nuestro equipo de endurax.net revisará tu configuración y te contactará en las próximas horas para coordinar la activación.</p>
+          <p style="color: #00DE87; font-weight: 600; margin-top: 30px;">📧 Revisa tu email (incluido spam) para los siguientes pasos.</p>
+          <p style="margin-top: 20px;">¿Tienes dudas? Contáctanos en <a href="https://www.endurax.net" style="color: #00DE87; font-weight: 600;">endurax.net</a></p>
+        </div>
+
+      </form>
+    </div>
+
+    <footer>
+      <p>Desarrollado por <strong style="color: #00DE87;">endurax.net</strong> para PYMEs españolas</p>
+      <p style="margin-top: 10px; font-size: 0.85rem;">© 2025 TARA Cloud Gateway - Protección empresarial en la nube</p>
+    </footer>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 7;
+
+    function nextStep(step) {
+      const currentStepElement = document.getElementById(`step-${currentStep}`);
+      const inputs = currentStepElement.querySelectorAll('input[required], select[required], textarea[required]');
+      let isValid = true;
+
+      inputs.forEach(input => {
+        if (input.type === 'radio') {
+          const radioGroup = currentStepElement.querySelectorAll(`input[name="${input.name}"]`);
+          const isChecked = Array.from(radioGroup).some(radio => radio.checked);
+          if (!isChecked) {
+            isValid = false;
+          }
+        } else if (input.type === 'checkbox') {
+          if (!input.checked) {
+            isValid = false;
+            input.style.outline = '2px solid #ff6b6b';
+          } else {
+            input.style.outline = 'none';
+          }
+        } else if (!input.value.trim()) {
+          isValid = false;
+          input.style.borderColor = '#ff6b6b';
+        } else {
+          input.style.borderColor = '#e0e0e0';
+        }
+      });
+
+      if (!isValid) {
+        alert('Por favor, completa todos los campos obligatorios antes de continuar');
+        return;
+      }
+
+      // Update progress
+      document.getElementById(`step-${currentStep}`).classList.remove('active');
+      document.getElementById(`step-indicator-${currentStep}`).classList.remove('active');
+      document.getElementById(`step-indicator-${currentStep}`).classList.add('completed');
+
+      currentStep = step;
+      document.getElementById(`step-${currentStep}`).classList.add('active');
+      document.getElementById(`step-indicator-${currentStep}`).classList.add('active');
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function prevStep(step) {
+      document.getElementById(`step-${currentStep}`).classList.remove('active');
+      document.getElementById(`step-indicator-${currentStep}`).classList.remove('active');
+
+      currentStep = step;
+      document.getElementById(`step-${currentStep}`).classList.add('active');
+      document.getElementById(`step-indicator-${currentStep}`).classList.add('active');
+      document.getElementById(`step-indicator-${currentStep}`).classList.remove('completed');
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.getElementById('taraForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Hide form and show success message
+      document.querySelectorAll('.form-step').forEach(step => step.style.display = 'none');
+      document.querySelector('.progress-container').style.display = 'none';
+      document.getElementById('success-message').classList.add('active');
+
+      // Submit form data
+      const formData = new FormData(this);
+      fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          console.log('Formulario enviado correctamente');
+        } else {
+          console.error('Error al enviar el formulario');
+        }
+      }).catch(error => {
+        console.error('Error:', error);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TARA Cloud Gateway - Firewall en la Nube para PYMEs</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #000000;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 0;
+      border-bottom: 2px solid #00DE87;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      height: 60px;
+      width: auto;
+      filter: drop-shadow(0 0 10px rgba(0, 222, 135, 0.4));
+    }
+
+    .brand-name {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #00DE87;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-shadow: 0 0 20px rgba(0, 222, 135, 0.5);
+    }
+
+    .header-link {
+      color: #00FF99;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 12px 25px;
+      border: 2px solid #00DE87;
+      border-radius: 25px;
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+
+    .header-link:hover {
+      background: rgba(0, 222, 135, 0.1);
+      transform: translateY(-2px);
+      border-color: #00FF99;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: #00DE87;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      text-shadow: 0 0 30px rgba(0, 222, 135, 0.4);
+    }
+
+    .hero .subtitle {
+      font-size: 1.5rem;
+      color: #00FF99;
+      margin-bottom: 15px;
+      font-weight: 300;
+    }
+
+    .hero .tagline {
+      font-size: 1.2rem;
+      color: #b0b0b0;
+      margin-bottom: 50px;
+      font-weight: 400;
+    }
+
+    .cta-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, #00FF99 0%, #00DE87 100%);
+      color: #000000;
+      padding: 20px 50px;
+      border: none;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(0, 255, 153, 0.4);
+    }
+
+    .cta-primary:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 255, 153, 0.6);
+    }
+
+    /* Video Section */
+    .video-section {
+      padding: 60px 20px;
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    .video-wrapper {
+      max-width: 400px;
+      margin: 0 auto;
+      position: relative;
+      padding-bottom: 177.78%;
+      height: 0;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 222, 135, 0.3);
+      border: 2px solid #00DE87;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Threats Section */
+    .threats {
+      padding: 80px 20px;
+      text-align: center;
+      animation: fadeInUp 1s ease-out 0.6s both;
+    }
+
+    .threats h2 {
+      font-size: 2.8rem;
+      color: #ff6b6b;
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+
+    .threats .intro {
+      font-size: 1.2rem;
+      color: #b0b0b0;
+      margin-bottom: 50px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .threats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .threat-card {
+      background: rgba(255, 107, 107, 0.05);
+      border: 2px solid rgba(255, 107, 107, 0.3);
+      border-radius: 20px;
+      padding: 40px;
+      transition: all 0.4s ease;
+    }
+
+    .threat-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(255, 107, 107, 0.6);
+      box-shadow: 0 20px 40px rgba(255, 107, 107, 0.2);
+    }
+
+    .threat-icon {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+    }
+
+    .threat-card h3 {
+      color: #ff8787;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .threat-card p {
+      color: #b0b0b0;
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    /* Solution Section */
+    .solution {
+      padding: 80px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(0, 222, 135, 0.08) 0%, rgba(0, 255, 153, 0.08) 100%);
+      border-radius: 30px;
+      margin: 40px 20px;
+      animation: fadeInUp 1s ease-out 0.9s both;
+    }
+
+    .solution h2 {
+      font-size: 2.8rem;
+      color: #00DE87;
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+
+    .solution .intro {
+      font-size: 1.2rem;
+      color: #b0b0b0;
+      margin-bottom: 50px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .benefit-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 2px solid #00DE87;
+      border-radius: 20px;
+      padding: 40px;
+      transition: all 0.4s ease;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-10px);
+      border-color: #00FF99;
+      box-shadow: 0 20px 40px rgba(0, 255, 153, 0.3);
+      background: rgba(0, 222, 135, 0.05);
+    }
+
+    .benefit-icon {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+    }
+
+    .benefit-card h3 {
+      color: #00FF99;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .benefit-card p {
+      color: #b0b0b0;
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 100px 20px;
+      animation: fadeInUp 1s ease-out 1.2s both;
+    }
+
+    .cta-section h2 {
+      font-size: 2.5rem;
+      color: #00FF99;
+      margin-bottom: 30px;
+      font-weight: 800;
+    }
+
+    .cta-section p {
+      font-size: 1.2rem;
+      color: #b0b0b0;
+      margin-bottom: 40px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 50px 20px;
+      color: #666;
+      font-size: 0.95rem;
+      border-top: 1px solid #333;
+      margin-top: 80px;
+    }
+
+    .footer-partners {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+
+    .partner {
+      color: #00FF99;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero .subtitle {
+        font-size: 1.2rem;
+      }
+
+      .threats h2,
+      .solution h2 {
+        font-size: 2.2rem;
+      }
+
+      header {
+        justify-content: center;
+        text-align: center;
+      }
+
+      .brand-name {
+        font-size: 1.5rem;
+      }
+
+      .threats-grid,
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-container">
+        <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 10 L50 85 L70 10" fill="none" stroke="#00DE87" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M35 45 L50 70 L65 45" fill="none" stroke="#00FF99" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="brand-name">TARA</span>
+      </div>
+      <a href="https://www.endurax.net" target="_blank" class="header-link">by endurax.net</a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Tu Empresa Protegida<br>Sin Complicaciones</h1>
+      <p class="subtitle">Firewall en la nube para PYMEs sin departamento IT</p>
+      <p class="tagline">Seguridad profesional que se activa en horas, no en semanas</p>
+      <a href="#cta" class="cta-primary">Empieza con 2 Meses Gratis</a>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+      <div class="video-wrapper">
+        <iframe 
+          src="https://www.youtube.com/embed/2xYgsP6PqTc" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Threats Section -->
+    <section class="threats">
+      <h2>¿Qué Puede Pasarle a Tu Empresa?</h2>
+      <p class="intro">Sin protección adecuada, tu negocio está expuesto a amenazas que pueden costarte dinero, clientes y tu reputación.</p>
+      <div class="threats-grid">
+        <div class="threat-card">
+          <div class="threat-icon">🔐</div>
+          <h3>Secuestro de Datos</h3>
+          <p>Los hackers bloquean tus archivos y piden rescate. Miles de euros perdidos y días sin poder trabajar.</p>
+        </div>
+
+        <div class="threat-card">
+          <div class="threat-icon">💳</div>
+          <h3>Robo de Información</h3>
+          <p>Datos de clientes, contraseñas bancarias y documentos confidenciales en manos equivocadas.</p>
+        </div>
+
+        <div class="threat-card">
+          <div class="threat-icon">⚠️</div>
+          <h3>Multas RGPD</h3>
+          <p>Si te roban datos de clientes, puedes enfrentar multas de hasta 20 millones de euros o el 4% de tu facturación.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+      <h2>TARA te Protege Automáticamente</h2>
+      <p class="intro">Nuestro firewall en la nube trabaja 24/7 para que tú no tengas que preocuparte de nada.</p>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">⚡</div>
+          <h3>Activo en Horas</h3>
+          <p>Sin instalaciones complejas. Lo configuramos todo por ti y empiezas a estar protegido el mismo día.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🛡️</div>
+          <h3>Tecnología Fortinet</h3>
+          <p>La misma seguridad que usan bancos y grandes empresas, pero fácil de usar y sin técnicos.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">💰</div>
+          <h3>Piloto: 2 Meses Gratis</h3>
+          <p>Pruébalo sin riesgo en nuestro programa piloto. Si no te convence, cancelas. Sin compromisos ni letra pequeña.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="cta">
+      <h2>Protege Tu Empresa Ahora</h2>
+      <p>Responde unas preguntas simples y activa tu firewall hoy mismo</p>
+      <a href="activacion.html" class="cta-primary">Configurar Mi Protección</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>Desarrollado para PYMEs españolas</p>
+      <div class="footer-partners">
+        <span class="partner">endurax.net</span>
+        <span class="partner">Woman4Cyber</span>
+        <span class="partner">Tetuan Valley</span>
+      </div>
+      <p style="margin-top: 20px; font-size: 0.85rem; color: #555;">© 2025 TARA Cloud Gateway - Todos los derechos reservados</p>
+    </footer>
+  </div>
+</body>
+</html>
